@@ -1,0 +1,58 @@
+version: '3.5'
+services:
+
+   structure-service:
+    container_name: structure-service
+    image: docker12051981/structure-service:0.0.1-compose
+    ports:
+      - "9001:9001"
+    external_links:
+      - mongo1
+      - mongo2
+      - mongo3
+    environment:
+      server.port: 9001
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+   
+   fonctionnaire-service:
+    container_name: fonctionnaire-service
+    image: docker12051981/fonctionnaire-service:0.0.1-compose
+    ports:
+      - "9002:9002"
+    external_links:
+      - mongo1
+      - mongo2
+      - mongo3
+    environment:
+      server.port: 9002
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+      
+   login-service:
+    container_name: login-service
+    image: docker12051981/login-service:0.0.1-compose
+    ports:
+      - "9004:9004"
+    external_links:
+      - mongo1
+      - mongo2
+      - mongo3
+    environment:
+      server.port: 9004
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+    
+   user-service:
+    container_name: user-service
+    image: docker12051981/user-service:0.0.1-compose
+    ports:
+      - "9003:9003"
+    external_links:
+      - mongo1
+      - mongo2
+      - mongo3
+    environment:
+      server.port: 9003
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+networks: 
+  default: 
+    external: 
+      name: microservices_spring_mongo_angular_docker_net    
